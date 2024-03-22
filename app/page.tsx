@@ -1,9 +1,7 @@
+import Board from "./ui/board";
+
 const HomePage = () => {
-  return (
-    <div>
-      Hello World!
-    </div>
-  );
-}
+  return <Board />;
+};
 
 export default HomePage;

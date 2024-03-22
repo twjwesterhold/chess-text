@@ -1,0 +1,12 @@
+.square {
+  height: 60px;
+  padding: 0;
+  width: 60px;
+}
+
+.white {
+  background: beige;
+}
+.black {
+  background: cadetblue;
+}
