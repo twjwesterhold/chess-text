@@ -1,8 +1,8 @@
 import Piece from "./piece";
 
-const Square = ({ color, piece }) => {
+const Square = ({ color, piece, onSquareClick }) => {
   return (
-    <button className={`square ${color}`}>
+    <button className={`square ${color}`} onClick={onSquareClick}>
       <Piece piece={piece} />
     </button>
   );

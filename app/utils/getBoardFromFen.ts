@@ -15,6 +15,7 @@ export const getBoardFromFen = (fen: string) => {
         rank,
         file,
         piece: square !== "1" ? square : "",
+        color: (rank + file) % 2 === 0 ? "black" : "white"
       });
     });
 

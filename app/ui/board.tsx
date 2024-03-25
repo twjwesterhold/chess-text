@@ -7,6 +7,7 @@ import { getBoardFromFen, isValidFen } from "../utils";
 const Board = () => {
   const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
   const [board, setBoard] = useState(getBoardFromFen(fen));
+  const [activeSquare, setActiveSquare] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +15,20 @@ const Board = () => {
       alert("Invalid fen!");
     } else {
       setBoard(getBoardFromFen(fen));
+    }
+  }
+
+  const handleSquareClick = (rank: number, file: number) => {
+    const newBoard = board.slice();
+    if (activeSquare) {
+      newBoard[rank][file].piece = board[activeSquare.rank][activeSquare.file].piece;
+      newBoard[activeSquare.rank][activeSquare.file] = { piece: "", color: ((activeSquare.rank + activeSquare.file) % 2 === 0) ? "black" : "white" };
+      setBoard(newBoard);
+      setActiveSquare(null);
+    } else if (board[rank][file].piece) {
+      newBoard[rank][file].color = ((rank + file) % 2 === 0) ? "black-highlight" : "white-highlight";
+      setBoard(newBoard);
+      setActiveSquare({ rank, file });
     }
   }
 
@@ -26,8 +41,9 @@ const Board = () => {
               return (
                 <Square
                   key={`${rank}${file}`}
-                  color={(rank + file) % 2 === 0 ? "black" : "white"}
+                  color={col.color}
                   piece={col.piece}
+                  onSquareClick={() => { handleSquareClick(rank, file) }}
                 />
               );
             })}

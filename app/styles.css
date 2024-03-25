@@ -11,10 +11,17 @@
 }
 
 .white {
-  background: #e5d5ce;
+  background: #f6ebd1;
 }
 .black {
-  background: #727c59;
+  background: #b4916e;
+}
+
+.white-highlight {
+  background: #749159;
+}
+.black-highlight {
+  background: #687352;
 }
 
 .search {
