@@ -1,7 +1,13 @@
+.body {
+  background: darkgray;
+  padding: 50px;
+}
+
 .square {
   height: 60px;
-  padding: 0;
   width: 60px;
+  float: left;
+  border: 0;
 }
 
 .white {
@@ -9,4 +15,16 @@
 }
 .black {
   background: cadetblue;
+}
+
+.search {
+  height: 30px;
+  width: 380px;
+  font-size: 20px;
+}
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
 }
