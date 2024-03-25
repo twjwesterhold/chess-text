@@ -1,46 +1,49 @@
 "use client";
 
+import Square from "./square";
 import { useState } from "react";
-import WhitePawn from "./pieces/whitePawn";
-
-const Square = ({ color, piece }) => {
-  const [thisPiece, setThisPiece] = useState(piece);
-
-  const handleClick = () => {
-    setThisPiece(WhitePawn);
-  };
-
-  return (
-    <button className={`square ${color}`} onClick={handleClick}>
-      {thisPiece}
-    </button>
-  );
-};
+import { getBoardFromFen, isValidFen } from "../utils";
 
 const Board = () => {
-  const board = [];
-  for (let rank = 0; rank < 8; rank++) {
-    const row = [];
-    for (let file = 0; file < 8; file++) {
-      row.push(
-        <Square
-          key={`${rank}${file}`}
-          color={(rank + file) % 2 === 0 ? "black" : "white"}
-          piece={null}
-        />,
-      );
+  const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+  const [board, setBoard] = useState(getBoardFromFen(fen));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isValidFen(fen)) {
+      alert("Invalid fen!");
+    } else {
+      setBoard(getBoardFromFen(fen));
     }
-    board.push(
-      <div key={rank} className="board-row">
-        {row}
-      </div>,
-    );
   }
 
   return (
     <div>
-      {board}
-      <input className="search" type="text" />
+      {!!board && board.map((row, rank) => {
+        return (
+          <div key={rank} className="board-row">
+            {row.map((col, file) => {
+              return (
+                <Square
+                  key={`${rank}${file}`}
+                  color={(rank + file) % 2 === 0 ? "black" : "white"}
+                  piece={col.piece}
+                />
+              );
+            })}
+          </div>
+        );
+      })}
+      <form id="fen-submit" onSubmit={handleSubmit}>
+        <input
+          id="fen-submit-text"
+          className="search"
+          type="text"
+          value={fen}
+          onChange={(e) => setFen(e.target.value)}
+        />
+        <button id="fen-submit-button" className="button">Load</button>
+      </form>
     </div>
   );
 };
