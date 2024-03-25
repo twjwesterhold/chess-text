@@ -34,22 +34,24 @@ const Board = () => {
 
   return (
     <div>
-      {!!board && board.map((row, rank) => {
-        return (
-          <div key={rank} className="board-row">
-            {row.map((col, file) => {
-              return (
-                <Square
-                  key={`${rank}${file}`}
-                  color={col.color}
-                  piece={col.piece}
-                  onSquareClick={() => { handleSquareClick(rank, file) }}
-                />
-              );
-            })}
-          </div>
-        );
-      })}
+      <div className="board">
+        {!!board && board.map((row, rank) => {
+          return (
+            <div key={rank} className="board-row">
+              {row.map((col, file) => {
+                return (
+                  <Square
+                    key={`${rank}${file}`}
+                    color={col.color}
+                    piece={col.piece}
+                    onSquareClick={() => { handleSquareClick(rank, file) }}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
       <form id="fen-submit" onSubmit={handleSubmit}>
         <input
           id="fen-submit-text"
