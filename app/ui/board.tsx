@@ -29,14 +29,18 @@ const Board = () => {
         />,
       );
     }
-    board.push(<div key={rank} className="board-row">{row}</div>);
+    board.push(
+      <div key={rank} className="board-row">
+        {row}
+      </div>,
+    );
   }
 
   return (
-  <div>
-    {board}
-    <input className="search" type="text" />
-  </div>
+    <div>
+      {board}
+      <input className="search" type="text" />
+    </div>
   );
 };
 
