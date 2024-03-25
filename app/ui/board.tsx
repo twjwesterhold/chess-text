@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import WhitePawn from "./pieces/whitePawn";
 
 const Square = ({ color, piece }) => {
   const [thisPiece, setThisPiece] = useState(piece);
 
   const handleClick = () => {
-    setThisPiece("P");
+    setThisPiece(WhitePawn);
   };
 
   return (
