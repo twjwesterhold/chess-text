@@ -1,7 +1,7 @@
 const queenMoves = (rank, file, isWhite) => {
   const direction = isWhite ? -1 : 1;
   const validSquares = [];
-  if (Math.abs(rank + direction) < 8) {
+  if (rank + direction >= 0 && rank + direction < 8) {
     validSquares.push([rank + direction, file]);
   }
   return validSquares;

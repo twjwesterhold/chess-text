@@ -13,6 +13,7 @@ const Square = ({
   return (
     <StyledSquare
       onClick={onSquareClick}
+      tabIndex={-1}
       $isWhite={isWhite}
       $isValid={isValid}
       $piece={piece}
@@ -31,6 +32,7 @@ const StyledSquare = styled.button<{ $isWhite; $isValid; $piece }>`
   width: 10vw;
   max-width: 100px;
   max-height: 100px;
+    outline: none;
   border: none;
   padding: 0;
   cursor: pointer;

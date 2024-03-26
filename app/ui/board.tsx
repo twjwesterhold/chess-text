@@ -28,29 +28,44 @@ const Board = () => {
       return row.slice();
     });
     if (activeSquare) {
-      newBoard[activeSquare.rank][activeSquare.file] = {
-        ...board[activeSquare.rank][activeSquare.file],
-        piece: "",
-        isActive: false,
-      };
-      validSquares.forEach((el) => {
-        newBoard[el[0]][el[1]] = {
-          ...board[el[0]][el[1]],
-          isValid: false,
+      if (validSquares.find((el) => el.rank === rank && el.file === file)) {
+        newBoard[activeSquare.rank][activeSquare.file] = {
+          ...board[activeSquare.rank][activeSquare.file],
+          piece: "",
+          isActive: false,
         };
-      });
-      newBoard[rank][file].piece =
-        board[activeSquare.rank][activeSquare.file].piece;
-      setBoard(newBoard);
-      setFen(getFenFromBoard(newBoard));
-      setActiveSquare(null);
-      setValidSquares([]);
+        validSquares.forEach((el) => {
+          newBoard[el.rank][el.file] = {
+            ...board[el.rank][el.file],
+            isValid: false,
+          };
+        });
+        newBoard[rank][file].piece =
+          board[activeSquare.rank][activeSquare.file].piece;
+        setBoard(newBoard);
+        setFen(getFenFromBoard(newBoard));
+        setActiveSquare(null);
+        setValidSquares([]);
+      } else {
+        newBoard[activeSquare.rank][activeSquare.file] = {
+          ...board[activeSquare.rank][activeSquare.file],
+          isActive: false,
+        }
+        validSquares.forEach((el) => {
+          newBoard[el.rank][el.file] = {
+            ...board[el.rank][el.file],
+            isValid: false,
+          };
+        });
+        setBoard(newBoard);
+        setActiveSquare(null);
+        setValidSquares([]);
+      }
     } else if (board[rank][file].piece) {
       const newValidSquares = moveHandler(board[rank][file].piece, rank, file);
-      console.log(newValidSquares);
       newValidSquares.forEach((el) => {
-        newBoard[el[0]][el[1]] = {
-          ...board[el[0]][el[1]],
+        newBoard[el.rank][el.file] = {
+          ...board[el.rank][el.file],
           isValid: true,
         };
       });
