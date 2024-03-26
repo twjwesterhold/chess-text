@@ -1,5 +1,6 @@
 import { inter } from "./style/fonts";
 import "./styles.css";
+import StyledComponentsRegistry from "./registry";
 
 export const metadata = {
   title: "Chess Text",
@@ -8,7 +9,9 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <body className={`${inter.className} body`}>{children}</body>
+      <body className={`${inter.className} body`}>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      </body>
     </html>
   );
 };

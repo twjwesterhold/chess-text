@@ -4,6 +4,7 @@ import Square from "./square";
 import { useState } from "react";
 import { getBoardFromFen, getFenFromBoard, isValidFen } from "../utils";
 import { inter } from "../style/fonts";
+import { Colors } from "../style/colors";
 
 const Board = () => {
   const [fen, setFen] = useState(
@@ -29,14 +30,18 @@ const Board = () => {
       newBoard[activeSquare.rank][activeSquare.file] = {
         piece: "",
         color:
-          (activeSquare.rank + activeSquare.file) % 2 === 0 ? "white" : "black",
+          (activeSquare.rank + activeSquare.file) % 2 === 0
+            ? Colors.LightSquare
+            : Colors.DarkSquare,
       };
       setBoard(newBoard);
       setFen(getFenFromBoard(board));
       setActiveSquare(null);
     } else if (board[rank][file].piece) {
       newBoard[rank][file].color =
-        (rank + file) % 2 === 0 ? "white-highlight" : "black-highlight";
+        (rank + file) % 2 === 0
+          ? Colors.LightSquareSelect
+          : Colors.DarkSquareSelect;
       setBoard(newBoard);
       setActiveSquare({ rank, file });
     }

@@ -1,4 +1,5 @@
 import { expandEmptySquares } from "./index";
+import { Colors } from "../../style/colors";
 
 const getBoardFromFen = (fen: string) => {
   const fenTemp = expandEmptySquares(fen.split(" ", 1)[0]);
@@ -13,7 +14,7 @@ const getBoardFromFen = (fen: string) => {
     row.split("").forEach((square, file) => {
       boardRow.push({
         piece: square !== "1" ? square : "",
-        color: (rank + file) % 2 === 0 ? "white" : "black",
+        color: (rank + file) % 2 === 0 ? Colors.LightSquare : Colors.DarkSquare,
       });
     });
 
