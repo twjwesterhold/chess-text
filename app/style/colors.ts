@@ -1,8 +1,7 @@
 export const Colors = {
   LightSquare: "#eddabd",
   DarkSquare: "#b08461",
-  LightSquareSelect: "#749159",
-  DarkSquareSelect: "#687352",
-  LightSquareHover: "#94af7c",
-  DarkSquareHover: "#848d71",
+  SquareSelect: "rgba(52,93,17,0.5)",
+  LightSquareHover: "rgba(112,143,86,0.5)",
+  DarkSquareHover: "rgba(91,107,49,0.5)",
 };

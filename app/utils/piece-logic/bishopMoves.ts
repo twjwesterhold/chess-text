@@ -1,4 +1,4 @@
-const pawnLogic = (rank, file, isWhite) => {
+const bishopMoves = (rank, file, isWhite) => {
   const direction = isWhite ? -1 : 1;
   const validSquares = [];
   if (Math.abs(rank + direction) < 8) {
@@ -7,4 +7,4 @@ const pawnLogic = (rank, file, isWhite) => {
   return validSquares;
 };
 
-export default pawnLogic;
+export default bishopMoves;

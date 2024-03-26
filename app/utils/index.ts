@@ -5,7 +5,7 @@ import {
   isValidFen,
   squeezeEmptySquares,
 } from "./fen-logic";
-import { pawnLogic } from "./piece-logic";
+import { pawnMoves } from "./piece-logic";
 
 export {
   expandEmptySquares,
@@ -13,5 +13,5 @@ export {
   getFenFromBoard,
   isValidFen,
   squeezeEmptySquares,
-  pawnLogic,
+  pawnMoves,
 };

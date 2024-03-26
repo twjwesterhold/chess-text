@@ -4,7 +4,6 @@ import Square from "./square";
 import { useState } from "react";
 import { getBoardFromFen, getFenFromBoard, isValidFen } from "../utils";
 import { inter } from "../style/fonts";
-import { Colors } from "../style/colors";
 import { pieceHandler } from "../utils/piece-logic";
 
 const Board = () => {
@@ -31,36 +30,32 @@ const Board = () => {
     });
     if (activeSquare) {
       newBoard[activeSquare.rank][activeSquare.file] = {
+        ...board[activeSquare.rank][activeSquare.file],
         piece: "",
-        color:
-          (activeSquare.rank + activeSquare.file) % 2 === 0
-            ? Colors.LightSquare
-            : Colors.DarkSquare,
+        isActive: false,
       };
       validSquares.forEach((el) => {
-        newBoard[el[0]][el[1]].color =
-          (el[0] + el[1]) % 2 === 0
-            ? Colors.LightSquare
-            : Colors.DarkSquare;
-      })
+        newBoard[el[0]][el[1]] = {
+          ...board[el[0]][el[1]],
+          isValid: false,
+        };
+      });
       newBoard[rank][file].piece =
         board[activeSquare.rank][activeSquare.file].piece;
       setBoard(newBoard);
       setFen(getFenFromBoard(newBoard));
       setActiveSquare(null);
+      setValidSquares([]);
     } else if (board[rank][file].piece) {
       const newValidSquares = pieceHandler(board[rank][file].piece, rank, file);
+      console.log(newValidSquares);
       newValidSquares.forEach((el) => {
-        console.log(el);
-        newBoard[el[0]][el[1]].color =
-          (el[0] + el[1]) % 2 === 0
-            ? Colors.LightSquareSelect
-            : Colors.DarkSquareSelect;
-      })
-      newBoard[rank][file].color =
-        (rank + file) % 2 === 0
-          ? Colors.LightSquareSelect
-          : Colors.DarkSquareSelect;
+        newBoard[el[0]][el[1]] = {
+          ...board[el[0]][el[1]],
+          isValid: true,
+        };
+      });
+      newBoard[rank][file].isActive = true;
       setValidSquares(newValidSquares);
       setBoard(newBoard);
       setActiveSquare({ rank, file });
@@ -71,19 +66,23 @@ const Board = () => {
     <div className={`${inter.className} board-container`}>
       <div className="fen">
         <h1>Board Editor</h1>
-        <button className="submit-button" onClick={() => setFlipped(!flipped)}>Flip Board</button>
+        <button className="submit-button" onClick={() => setFlipped(!flipped)}>
+          Flip Board
+        </button>
       </div>
       <div className={`board ${flipped ? "flipped" : ""}`}>
         {!!board &&
           board.map((row, rank) => {
             return (
               <div key={rank} className="board-row">
-                {row.map((col, file) => {
+                {row.map((square, file) => {
                   return (
                     <Square
-                      key={`${7-rank}${file}`}
-                      color={col.color}
-                      piece={col.piece}
+                      key={`${rank}${file}`}
+                      isWhite={square.isWhite}
+                      piece={square.piece}
+                      isActive={square.isActive}
+                      isValid={square.isValid}
                       flipped={flipped}
                       onSquareClick={() => {
                         handleSquareClick(rank, file);
