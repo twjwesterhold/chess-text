@@ -49,6 +49,12 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 15px black;
+  transform-style: preserve-3d;
+  background: #eddabd;
+}
+
+.flipped {
+  transform: scaleY(-1);
 }
 
 .fen {

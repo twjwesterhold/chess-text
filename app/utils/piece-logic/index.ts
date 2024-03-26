@@ -1,3 +1,4 @@
 import pawnLogic from "./pawnLogic";
+import pieceHandler from "./pieceHandler";
 
-export { pawnLogic };
+export { pawnLogic, pieceHandler };
