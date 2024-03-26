@@ -23,10 +23,10 @@ const Board = () => {
   };
 
   const handleSquareClick = (rank: number, file: number) => {
-    const newBoard = board.slice();
+    const newBoard = board.map((row) => {
+      return row.slice();
+    });
     if (activeSquare) {
-      newBoard[rank][file].piece =
-        board[activeSquare.rank][activeSquare.file].piece;
       newBoard[activeSquare.rank][activeSquare.file] = {
         piece: "",
         color:
@@ -34,8 +34,10 @@ const Board = () => {
             ? Colors.LightSquare
             : Colors.DarkSquare,
       };
+      newBoard[rank][file].piece =
+        board[activeSquare.rank][activeSquare.file].piece;
       setBoard(newBoard);
-      setFen(getFenFromBoard(board));
+      setFen(getFenFromBoard(newBoard));
       setActiveSquare(null);
     } else if (board[rank][file].piece) {
       newBoard[rank][file].color =
