@@ -1,8 +1,37 @@
-const pawnMoves = (rank, file, isWhite) => {
+const pawnMoves = (board, rank, file) => {
+  const isWhite =
+    board[rank][file].piece === board[rank][file].piece.toUpperCase();
   const direction = isWhite ? -1 : 1;
   const validSquares = [];
-  if (rank + direction >= 0 && rank + direction < 8) {
-    validSquares.push({ rank: rank + direction, file: file });
+  const forward1 = rank + direction;
+  if (forward1 >= 0 && forward1 < 8) {
+    if (!board[forward1][file].piece) {
+      validSquares.push({ rank: forward1, file: file });
+      if (
+        (rank === 1 || rank === 6) &&
+        !board[forward1 + direction][file].piece
+      ) {
+        validSquares.push({ rank: forward1 + direction, file: file });
+      }
+    }
+    if (
+      file !== 0 &&
+      board[forward1][file - 1].piece &&
+      (board[forward1][file - 1].piece ===
+        board[forward1][file - 1].piece.toUpperCase()) !==
+        isWhite
+    ) {
+      validSquares.push({ rank: forward1, file: file - 1 });
+    }
+    if (
+      file !== 7 &&
+      board[forward1][file + 1].piece &&
+      (board[forward1][file + 1].piece ===
+        board[forward1][file + 1].piece.toUpperCase()) !==
+        isWhite
+    ) {
+      validSquares.push({ rank: forward1, file: file + 1 });
+    }
   }
   return validSquares;
 };

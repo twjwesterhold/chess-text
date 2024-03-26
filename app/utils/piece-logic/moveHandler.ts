@@ -8,17 +8,16 @@ import {
 } from "./index";
 
 const logicMap = new Map([
-  ["p", (rank, file, isWhite) => pawnMoves(rank, file, isWhite)],
-  ["n", (rank, file, isWhite) => nightMoves(rank, file, isWhite)],
-  ["b", (rank, file, isWhite) => bishopMoves(rank, file, isWhite)],
-  ["r", (rank, file, isWhite) => rookMoves(rank, file, isWhite)],
-  ["q", (rank, file, isWhite) => queenMoves(rank, file, isWhite)],
-  ["k", (rank, file, isWhite) => kingMoves(rank, file, isWhite)],
+  ["p", pawnMoves],
+  ["n", nightMoves],
+  ["b", bishopMoves],
+  ["r", rookMoves],
+  ["q", queenMoves],
+  ["k", kingMoves],
 ]);
 
-const moveHandler = (piece, rank, file) => {
-  const isWhite = piece === piece.toUpperCase();
-  return logicMap.get(piece.toLowerCase())(rank, file, isWhite);
+const moveHandler = (board, rank, file) => {
+  return logicMap.get(board[rank][file].piece.toLowerCase())(board, rank, file);
 };
 
 export default moveHandler;

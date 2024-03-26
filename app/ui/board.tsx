@@ -2,7 +2,12 @@
 
 import Square from "./square";
 import { useState } from "react";
-import { getBoardFromFen, getFenFromBoard, isValidFen, moveHandler } from "../utils";
+import {
+  getBoardFromFen,
+  getFenFromBoard,
+  isValidFen,
+  moveHandler,
+} from "../utils";
 import { inter } from "../style/fonts";
 
 const Board = () => {
@@ -13,6 +18,7 @@ const Board = () => {
   const [activeSquare, setActiveSquare] = useState(null);
   const [flipped, setFlipped] = useState(false);
   const [validSquares, setValidSquares] = useState([]);
+  const [whiteToMove, setWhiteToMove] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,11 +52,12 @@ const Board = () => {
         setFen(getFenFromBoard(newBoard));
         setActiveSquare(null);
         setValidSquares([]);
+        setWhiteToMove(!whiteToMove);
       } else {
         newBoard[activeSquare.rank][activeSquare.file] = {
           ...board[activeSquare.rank][activeSquare.file],
           isActive: false,
-        }
+        };
         validSquares.forEach((el) => {
           newBoard[el.rank][el.file] = {
             ...board[el.rank][el.file],
@@ -61,8 +68,12 @@ const Board = () => {
         setActiveSquare(null);
         setValidSquares([]);
       }
-    } else if (board[rank][file].piece) {
-      const newValidSquares = moveHandler(board[rank][file].piece, rank, file);
+    } else if (
+      board[rank][file].piece &&
+      (board[rank][file].piece === board[rank][file].piece.toUpperCase()) ===
+        whiteToMove
+    ) {
+      const newValidSquares = moveHandler(board, rank, file);
       newValidSquares.forEach((el) => {
         newBoard[el.rank][el.file] = {
           ...board[el.rank][el.file],
