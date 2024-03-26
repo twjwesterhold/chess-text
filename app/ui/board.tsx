@@ -2,9 +2,8 @@
 
 import Square from "./square";
 import { useState } from "react";
-import { getBoardFromFen, getFenFromBoard, isValidFen } from "../utils";
+import { getBoardFromFen, getFenFromBoard, isValidFen, moveHandler } from "../utils";
 import { inter } from "../style/fonts";
-import { pieceHandler } from "../utils/piece-logic";
 
 const Board = () => {
   const [fen, setFen] = useState(
@@ -47,7 +46,7 @@ const Board = () => {
       setActiveSquare(null);
       setValidSquares([]);
     } else if (board[rank][file].piece) {
-      const newValidSquares = pieceHandler(board[rank][file].piece, rank, file);
+      const newValidSquares = moveHandler(board[rank][file].piece, rank, file);
       console.log(newValidSquares);
       newValidSquares.forEach((el) => {
         newBoard[el[0]][el[1]] = {

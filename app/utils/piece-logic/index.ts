@@ -4,7 +4,7 @@ import bishopMoves from "./bishopMoves";
 import rookMoves from "./rookMoves";
 import queenMoves from "./queenMoves";
 import kingMoves from "./kingMoves";
-import pieceHandler from "./pieceHandler";
+import moveHandler from "./moveHandler";
 
 export {
   pawnMoves,
@@ -13,5 +13,5 @@ export {
   rookMoves,
   queenMoves,
   kingMoves,
-  pieceHandler,
+  moveHandler,
 };

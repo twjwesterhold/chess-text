@@ -16,9 +16,9 @@ const logicMap = new Map([
   ["k", (rank, file, isWhite) => kingMoves(rank, file, isWhite)],
 ]);
 
-const pieceHandler = (piece, rank, file) => {
+const moveHandler = (piece, rank, file) => {
   const isWhite = piece === piece.toUpperCase();
   return logicMap.get(piece.toLowerCase())(rank, file, isWhite);
 };
 
-export default pieceHandler;
+export default moveHandler;
