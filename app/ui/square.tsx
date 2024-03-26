@@ -1,5 +1,5 @@
 import Piece from "./piece";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Colors } from "../style/colors";
 
 const Square = ({
