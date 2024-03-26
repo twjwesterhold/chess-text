@@ -1,8 +1,6 @@
 import { squeezeEmptySquares } from "./index";
 
-const getFenFromBoard = (
-  board: { piece: string }[][],
-) => {
+const getFenFromBoard = (board: { piece: string }[][]) => {
   const fen = [];
 
   // iterate over rows of board
