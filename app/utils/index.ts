@@ -1,8 +1,5 @@
-import { expandEmptySquares } from "./expandEmptySquares";
-import { getBoardFromFen } from "./getBoardFromFen";
-import { getFenFromBoard } from "./getFenFromBoard";
-import { isValidFen } from "./isValidFen";
-import { squeezeEmptySquares } from "./squeezeEmptySquares";
+import { expandEmptySquares, getBoardFromFen, getFenFromBoard, isValidFen, squeezeEmptySquares } from "./fen-logic";
+import { pawnLogic } from "./piece-logic";
 
 export {
   expandEmptySquares,
@@ -10,4 +7,5 @@ export {
   getFenFromBoard,
   isValidFen,
   squeezeEmptySquares,
+  pawnLogic,
 };

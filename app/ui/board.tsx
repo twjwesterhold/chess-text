@@ -2,7 +2,8 @@
 
 import Square from "./square";
 import { useState } from "react";
-import { getBoardFromFen, isValidFen } from "../utils";
+import { getBoardFromFen, getFenFromBoard, isValidFen } from "../utils";
+import { inter } from "../style/fonts";
 
 const Board = () => {
   const [fen, setFen] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
@@ -22,18 +23,20 @@ const Board = () => {
     const newBoard = board.slice();
     if (activeSquare) {
       newBoard[rank][file].piece = board[activeSquare.rank][activeSquare.file].piece;
-      newBoard[activeSquare.rank][activeSquare.file] = { piece: "", color: ((activeSquare.rank + activeSquare.file) % 2 === 0) ? "black" : "white" };
+      newBoard[activeSquare.rank][activeSquare.file] = { piece: "", color: ((activeSquare.rank + activeSquare.file) % 2 === 0) ? "white" : "black" };
       setBoard(newBoard);
+      setFen(getFenFromBoard(board));
       setActiveSquare(null);
     } else if (board[rank][file].piece) {
-      newBoard[rank][file].color = ((rank + file) % 2 === 0) ? "black-highlight" : "white-highlight";
+      newBoard[rank][file].color = ((rank + file) % 2 === 0) ? "white-highlight" : "black-highlight";
       setBoard(newBoard);
       setActiveSquare({ rank, file });
     }
   }
 
   return (
-    <div>
+    <div className={`${inter.className} board-container`}>
+      <h1>Chess!</h1>
       <div className="board">
         {!!board && board.map((row, rank) => {
           return (
@@ -52,7 +55,7 @@ const Board = () => {
           );
         })}
       </div>
-      <form id="fen-submit" onSubmit={handleSubmit}>
+      <form className="fen" id="fen-submit" onSubmit={handleSubmit}>
         <input
           id="fen-submit-text"
           className="search"
@@ -60,7 +63,8 @@ const Board = () => {
           value={fen}
           onChange={(e) => setFen(e.target.value)}
         />
-        <button id="fen-submit-button" className="button">Load</button>
+        <button id="fen-submit-button" className="submit-button">Load</button>
+        <button id="fen-empty-button" className="submit-button" onClick={() => setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")}>Empty</button>
       </form>
     </div>
   );

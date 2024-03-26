@@ -1,7 +1,7 @@
-import { squeezeEmptySquares } from "./squeezeEmptySquares";
+import { squeezeEmptySquares } from "./index";
 
-export const getFenFromBoard = (
-  board: { rank: number; file: number; piece: string }[][],
+const getFenFromBoard = (
+  board: { piece: string }[][],
 ) => {
   const fen = [];
 
@@ -15,9 +15,11 @@ export const getFenFromBoard = (
     });
 
     // push row onto fen
-    fen.push(fenRow);
+    fen.push(fenRow.join(""));
   });
 
   // join fen array into single string and squeeze empty squares to make valid
   return squeezeEmptySquares(fen.join("/"));
 };
+
+export default getFenFromBoard;

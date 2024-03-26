@@ -29,7 +29,7 @@ const pieceMap = new Map([
 ]);
 
 const Piece = ({ piece }) => {
-  return <>{pieceMap.get(piece)}</>;
+  return pieceMap.get(piece);
 };
 
 export default Piece;

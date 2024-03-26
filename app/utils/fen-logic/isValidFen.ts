@@ -1,6 +1,6 @@
-import { expandEmptySquares } from "./expandEmptySquares";
+import { expandEmptySquares } from "./index";
 
-export const isValidFen = (fen: string) => {
+const isValidFen = (fen: string) => {
   // cut off move and castling data
   let fenTest = fen.split(" ", 1)[0];
 
@@ -23,3 +23,5 @@ export const isValidFen = (fen: string) => {
   // if we found an invalid row, will return false, otherwise true
   return invalidRow === undefined;
 };
+
+export default isValidFen;

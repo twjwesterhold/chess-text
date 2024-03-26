@@ -1,6 +1,12 @@
 .body {
-  background: darkgray;
-  padding: 50px;
+  background: #282828;
+  color: white;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .square {
@@ -9,13 +15,14 @@
   max-width: 100px;
   max-height: 100px;
   border: 0;
+  padding: 0;
 }
 
 .white {
-  background: #f6ebd1;
+  background: #eddabd;
 }
 .black {
-  background: #b4916e;
+  background: #b08461;
 }
 
 .white-highlight {
@@ -26,14 +33,31 @@
 }
 
 .search {
-  height: 35px;
-  width: 550px;
-  font-size: 24px;
+  height: 40px;
+  width: 50vw;
+  max-width: 500px;
+  font-size: 18px;
+  font-family: inherit;
+  background: #414141;
+  color: #ffffff;
+  border: solid #8a8a8a;
+  border-radius: 10px;
+  padding: 10px;
 }
 
-.button {
-  height: 35px;
-  font-size: 24px;
+.submit-button {
+  margin-left: 20px;
+  height: 60px;
+  font-size: 20px;
+  font-family: inherit;
+  background: #4d4d4d;
+  color: #ffffff;
+  border: solid #8a8a8a;
+  border-radius: 10px;
+  padding: 0 20px;
+  &:hover {
+    background: #356585;
+  }
 }
 
 .board-row {
@@ -43,8 +67,12 @@
 }
 
 .board {
-  display: inline-block;
-  width: 90vw;
-  max-width: 1000px;
-  height: auto;
+  width: 80vw;
+  max-width: 800px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fen {
+  margin-top: 20px;
 }
