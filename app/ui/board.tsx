@@ -1,7 +1,7 @@
 "use client";
 
 import Square from "./square";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   getBoardFromFen,
   getFenFromBoard,
@@ -9,18 +9,19 @@ import {
   moveHandler,
 } from "../utils";
 import { inter } from "../style/fonts";
+import { SquareCoords } from "../types";
 
 const Board = () => {
   const [fen, setFen] = useState(
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   );
   const [board, setBoard] = useState(getBoardFromFen(fen));
-  const [activeSquare, setActiveSquare] = useState(null);
+  const [activeSquare, setActiveSquare] = useState<SquareCoords | null>(null);
   const [flipped, setFlipped] = useState(false);
-  const [validSquares, setValidSquares] = useState([]);
+  const [validSquares, setValidSquares] = useState<SquareCoords[]>([]);
   const [whiteToMove, setWhiteToMove] = useState(true);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValidFen(fen)) {
       alert("Invalid fen!");
@@ -104,8 +105,8 @@ const Board = () => {
                   return (
                     <Square
                       key={`${rank}${file}`}
-                      isWhite={square.isWhite}
                       piece={square.piece}
+                      isWhite={square.isWhite}
                       isActive={square.isActive}
                       isValid={square.isValid}
                       flipped={flipped}

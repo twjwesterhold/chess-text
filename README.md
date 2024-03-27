@@ -6,7 +6,7 @@ for any sequences of chess moves found in the text.
 Right now, it's practice with TypeScript and React (building an interactive board), and
 once the interactive board is complete development will begin on text-from-image extraction.
 
-Ultimately, the plan is to develop this into an app so chess players can easily scan through 
+Ultimately, the plan is to develop this into an app so chess players can easily scan through
 reference books for significantly quicker studying.
 
 ## To Run

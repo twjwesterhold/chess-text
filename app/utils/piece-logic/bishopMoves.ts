@@ -1,10 +1,23 @@
-const bishopMoves = (board, rank, file) => {
-  const isWhite = board[rank][file].piece === board[rank][file].piece.toUpperCase();
-  const validSquares = [];
-  const directions = [[1,1], [-1,1], [-1,-1], [1,-1]];
+import { SquareCoords, SquareType } from "../../types";
+
+const bishopMoves = (board: SquareType[][], rank: number, file: number) => {
+  const isWhite =
+    board[rank][file].piece === board[rank][file].piece.toUpperCase();
+  const validSquares: SquareCoords[] = [];
+  const directions = [
+    [1, 1],
+    [-1, 1],
+    [-1, -1],
+    [1, -1],
+  ];
   directions.forEach((dir) => {
     let [targetRank, targetFile] = [rank + dir[0], file + dir[1]];
-    while (targetRank >= 0 && targetRank <= 7 && targetFile >= 0 && targetFile <= 7) {
+    while (
+      targetRank >= 0 &&
+      targetRank <= 7 &&
+      targetFile >= 0 &&
+      targetFile <= 7
+    ) {
       const targetPiece = board[targetRank][targetFile].piece;
       if (targetPiece) {
         if (!(targetPiece === targetPiece.toUpperCase()) === isWhite) {
@@ -16,7 +29,7 @@ const bishopMoves = (board, rank, file) => {
       targetRank += dir[0];
       targetFile += dir[1];
     }
-  })
+  });
   return validSquares;
 };
 

@@ -1,15 +1,25 @@
-import Piece from "./piece";
+import ChessPiece from "./piece";
 import styled from "styled-components";
 import { Colors } from "../style/colors";
+import { PieceType } from "../types";
+
+interface SquareProps {
+  piece: PieceType;
+  isWhite: boolean;
+  isActive: boolean;
+  isValid: boolean;
+  flipped: boolean;
+  onSquareClick: () => void;
+}
 
 const Square = ({
   piece,
   isWhite,
   isActive,
   isValid,
-  onSquareClick,
   flipped,
-}) => {
+  onSquareClick,
+}: SquareProps) => {
   return (
     <StyledSquare
       onClick={onSquareClick}
@@ -20,14 +30,18 @@ const Square = ({
     >
       <HighLight $isActive={isActive} $isValid={isValid}>
         <Flip $flipped={flipped}>
-          <Piece piece={piece} />
+          <ChessPiece piece={piece} />
         </Flip>
       </HighLight>
     </StyledSquare>
   );
 };
 
-const StyledSquare = styled.button<{ $isWhite; $isValid; $piece }>`
+const StyledSquare = styled.button<{
+  $isWhite: boolean;
+  $isValid: boolean;
+  $piece: PieceType;
+}>`
   height: 10vw;
   width: 10vw;
   max-width: 100px;
@@ -50,7 +64,7 @@ const StyledSquare = styled.button<{ $isWhite; $isValid; $piece }>`
   }
 `;
 
-const HighLight = styled.div<{ $isActive; $isValid }>`
+const HighLight = styled.div<{ $isActive: boolean; $isValid: boolean }>`
   height: 100%;
   width: 100%;
   background: ${(props) => (props.$isActive ? Colors.SquareSelect : "")};
@@ -60,7 +74,7 @@ const HighLight = styled.div<{ $isActive; $isValid }>`
   z-index: 2;
 `;
 
-const Flip = styled.div<{ $flipped }>`
+const Flip = styled.div<{ $flipped: boolean }>`
   transform: ${(props) => (props.$flipped ? "scaleY(-1)" : "")};
   z-index: 3;
 `;

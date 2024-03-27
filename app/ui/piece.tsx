@@ -12,6 +12,7 @@ import {
   WhiteQueen,
   WhiteRook,
 } from "./pieces";
+import { PieceType } from "../types";
 
 const pieceMap = new Map([
   ["b", <BlackBishop key="b" />],
@@ -28,8 +29,8 @@ const pieceMap = new Map([
   ["R", <WhiteRook key="R" />],
 ]);
 
-const Piece = ({ piece }) => {
+const ChessPiece = ({ piece }: { piece: PieceType }) => {
   return pieceMap.get(piece);
 };
 
-export default Piece;
+export default ChessPiece;

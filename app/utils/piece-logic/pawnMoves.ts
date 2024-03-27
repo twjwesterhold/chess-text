@@ -1,8 +1,10 @@
-const pawnMoves = (board, rank, file) => {
+import { SquareCoords, SquareType } from "../../types";
+
+const pawnMoves = (board: SquareType[][], rank: number, file: number) => {
   const isWhite =
     board[rank][file].piece === board[rank][file].piece.toUpperCase();
   const direction = isWhite ? -1 : 1;
-  const validSquares = [];
+  const validSquares: SquareCoords[] = [];
   const forward1 = rank + direction;
   if (forward1 >= 0 && forward1 <= 7) {
     if (!board[forward1][file].piece) {

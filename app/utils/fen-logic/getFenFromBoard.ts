@@ -1,11 +1,12 @@
 import { squeezeEmptySquares } from "./index";
+import { SquareType } from "../../types";
 
-const getFenFromBoard = (board: { piece: string }[][], whiteToMove: boolean) => {
-  const fen = [];
+const getFenFromBoard = (board: SquareType[][], whiteToMove: boolean) => {
+  const fen: string[] = [];
 
   // iterate over rows of board
   board.forEach((row) => {
-    const fenRow = [];
+    const fenRow: string[] = [];
 
     // iterate over individual row adding each piece to fenRow
     row.forEach((square) => {
@@ -17,7 +18,9 @@ const getFenFromBoard = (board: { piece: string }[][], whiteToMove: boolean) => 
   });
 
   // join fen array into single string and squeeze empty squares to make valid
-  return [squeezeEmptySquares(fen.join("/")), whiteToMove ? "w" : "b"].join(" ");
+  return [squeezeEmptySquares(fen.join("/")), whiteToMove ? "w" : "b"].join(
+    " ",
+  );
 };
 
 export default getFenFromBoard;
