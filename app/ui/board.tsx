@@ -49,10 +49,10 @@ const Board = () => {
         newBoard[rank][file].piece =
           board[activeSquare.rank][activeSquare.file].piece;
         setBoard(newBoard);
-        setFen(getFenFromBoard(newBoard));
+        setFen(getFenFromBoard(newBoard, !whiteToMove));
+        setWhiteToMove(!whiteToMove);
         setActiveSquare(null);
         setValidSquares([]);
-        setWhiteToMove(!whiteToMove);
       } else {
         newBoard[activeSquare.rank][activeSquare.file] = {
           ...board[activeSquare.rank][activeSquare.file],

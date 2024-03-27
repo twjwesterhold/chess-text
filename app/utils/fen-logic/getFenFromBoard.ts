@@ -1,6 +1,6 @@
 import { squeezeEmptySquares } from "./index";
 
-const getFenFromBoard = (board: { piece: string }[][]) => {
+const getFenFromBoard = (board: { piece: string }[][], whiteToMove: boolean) => {
   const fen = [];
 
   // iterate over rows of board
@@ -17,7 +17,7 @@ const getFenFromBoard = (board: { piece: string }[][]) => {
   });
 
   // join fen array into single string and squeeze empty squares to make valid
-  return squeezeEmptySquares(fen.join("/"));
+  return [squeezeEmptySquares(fen.join("/")), whiteToMove ? "w" : "b"].join(" ");
 };
 
 export default getFenFromBoard;

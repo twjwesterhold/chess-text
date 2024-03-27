@@ -4,11 +4,11 @@ const pawnMoves = (board, rank, file) => {
   const direction = isWhite ? -1 : 1;
   const validSquares = [];
   const forward1 = rank + direction;
-  if (forward1 >= 0 && forward1 < 8) {
+  if (forward1 >= 0 && forward1 <= 7) {
     if (!board[forward1][file].piece) {
       validSquares.push({ rank: forward1, file: file });
       if (
-        (rank === 1 || rank === 6) &&
+        ((rank === 1 && !isWhite) || (rank === 6 && isWhite)) &&
         !board[forward1 + direction][file].piece
       ) {
         validSquares.push({ rank: forward1 + direction, file: file });

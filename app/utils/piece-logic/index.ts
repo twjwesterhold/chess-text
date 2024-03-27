@@ -1,5 +1,5 @@
 import pawnMoves from "./pawnMoves";
-import nightMoves from "./nightMoves";
+import knightMoves from "./knightMoves";
 import bishopMoves from "./bishopMoves";
 import rookMoves from "./rookMoves";
 import queenMoves from "./queenMoves";
@@ -8,7 +8,7 @@ import moveHandler from "./moveHandler";
 
 export {
   pawnMoves,
-  nightMoves,
+  knightMoves,
   bishopMoves,
   rookMoves,
   queenMoves,

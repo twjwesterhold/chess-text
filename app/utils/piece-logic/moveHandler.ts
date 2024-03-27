@@ -1,7 +1,7 @@
 import {
   bishopMoves,
   kingMoves,
-  nightMoves,
+  knightMoves,
   pawnMoves,
   queenMoves,
   rookMoves,
@@ -9,7 +9,7 @@ import {
 
 const logicMap = new Map([
   ["p", pawnMoves],
-  ["n", nightMoves],
+  ["n", knightMoves],
   ["b", bishopMoves],
   ["r", rookMoves],
   ["q", queenMoves],
