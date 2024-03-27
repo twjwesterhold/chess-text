@@ -7,14 +7,13 @@ const getBoardFromFen = (fen: string): SquareType[][] => {
   const board: SquareType[][] = [];
 
   // iterate over rows of fen
-  rows.forEach((row, rank) => {
+  rows.forEach((row) => {
     const boardRow: SquareType[] = [];
 
     // iterate over individual row adding each piece to boardRow
-    row.split("").forEach((square, file) => {
+    row.split("").forEach((square) => {
       boardRow.push({
         piece: square !== "1" ? (square as PieceType) : "",
-        isWhite: (rank + file) % 2 === 0,
         isActive: false,
         isValid: false,
       });

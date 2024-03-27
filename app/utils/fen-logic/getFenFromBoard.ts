@@ -1,7 +1,11 @@
 import { squeezeEmptySquares } from "./index";
 import { SquareType } from "../../types";
 
-const getFenFromBoard = (board: SquareType[][], whiteToMove: boolean) => {
+const getFenFromBoard = (
+  board: SquareType[][],
+  whiteToMove: boolean,
+  castlingRights: string,
+) => {
   const fen: string[] = [];
 
   // iterate over rows of board
@@ -18,9 +22,11 @@ const getFenFromBoard = (board: SquareType[][], whiteToMove: boolean) => {
   });
 
   // join fen array into single string and squeeze empty squares to make valid
-  return [squeezeEmptySquares(fen.join("/")), whiteToMove ? "w" : "b"].join(
-    " ",
-  );
+  return [
+    squeezeEmptySquares(fen.join("/")),
+    whiteToMove ? "w" : "b",
+    castlingRights,
+  ].join(" ");
 };
 
 export default getFenFromBoard;

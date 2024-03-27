@@ -20,6 +20,7 @@ const Board = () => {
   const [flipped, setFlipped] = useState(false);
   const [validSquares, setValidSquares] = useState<SquareCoords[]>([]);
   const [whiteToMove, setWhiteToMove] = useState(true);
+  const [castlingRights, setCastlingRights] = useState("KQkq");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,35 +37,15 @@ const Board = () => {
     });
     if (activeSquare) {
       if (validSquares.find((el) => el.rank === rank && el.file === file)) {
-        newBoard[activeSquare.rank][activeSquare.file] = {
-          ...board[activeSquare.rank][activeSquare.file],
-          piece: "",
-          isActive: false,
-        };
-        validSquares.forEach((el) => {
-          newBoard[el.rank][el.file] = {
-            ...board[el.rank][el.file],
-            isValid: false,
-          };
-        });
         newBoard[rank][file].piece =
           board[activeSquare.rank][activeSquare.file].piece;
+        newBoard[activeSquare.rank][activeSquare.file].piece = "";
         setBoard(newBoard);
-        setFen(getFenFromBoard(newBoard, !whiteToMove));
+        setFen(getFenFromBoard(newBoard, !whiteToMove, castlingRights));
         setWhiteToMove(!whiteToMove);
         setActiveSquare(null);
         setValidSquares([]);
       } else {
-        newBoard[activeSquare.rank][activeSquare.file] = {
-          ...board[activeSquare.rank][activeSquare.file],
-          isActive: false,
-        };
-        validSquares.forEach((el) => {
-          newBoard[el.rank][el.file] = {
-            ...board[el.rank][el.file],
-            isValid: false,
-          };
-        });
         setBoard(newBoard);
         setActiveSquare(null);
         setValidSquares([]);
@@ -75,15 +56,7 @@ const Board = () => {
         whiteToMove
     ) {
       const newValidSquares = moveHandler(board, rank, file);
-      newValidSquares.forEach((el) => {
-        newBoard[el.rank][el.file] = {
-          ...board[el.rank][el.file],
-          isValid: true,
-        };
-      });
-      newBoard[rank][file].isActive = true;
       setValidSquares(newValidSquares);
-      setBoard(newBoard);
       setActiveSquare({ rank, file });
     }
   };
@@ -106,9 +79,17 @@ const Board = () => {
                     <Square
                       key={`${rank}${file}`}
                       piece={square.piece}
-                      isWhite={square.isWhite}
-                      isActive={square.isActive}
-                      isValid={square.isValid}
+                      isWhite={(rank + file) % 2 === 0}
+                      isActive={
+                        !!activeSquare &&
+                        activeSquare.rank === rank &&
+                        activeSquare.file === file
+                      }
+                      isValid={
+                        !!validSquares.find(
+                          (el) => el.rank === rank && el.file === file,
+                        )
+                      }
                       flipped={flipped}
                       onSquareClick={() => {
                         handleSquareClick(rank, file);

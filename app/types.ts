@@ -15,9 +15,6 @@ export type PieceType =
 
 export type SquareType = {
   piece: PieceType;
-  isWhite: boolean;
-  isActive: boolean;
-  isValid: boolean;
 };
 
 export type SquareCoords = {
