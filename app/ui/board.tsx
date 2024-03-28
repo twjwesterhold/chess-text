@@ -10,6 +10,7 @@ import {
 } from "../utils";
 import { inter } from "../style/fonts";
 import { SquareCoords } from "../types";
+import { Colors } from "../style/colors";
 
 const Board = () => {
   const [fen, setFen] = useState(
@@ -22,6 +23,7 @@ const Board = () => {
   });
   const [flipped, setFlipped] = useState(false);
   const [validSquares, setValidSquares] = useState<SquareCoords[]>([]);
+  const [theme, setTheme] = useState(Colors.primary);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,8 +66,23 @@ const Board = () => {
 
   return (
     <div className={`${inter.className} board-container`}>
-      <div className="fen">
-        <h1>Board Editor</h1>
+      <div className="header-line">
+        <h1 className="h1">Board Editor</h1>
+        <div>
+          <label className="select-label">Theme:</label>
+          <select
+            name="cars"
+            id="cars"
+            className="select"
+            onChange={(e) => setTheme(JSON.parse(e.target.value))}
+          >
+            <option value={JSON.stringify(Colors.primary)}>Primary</option>
+            <option value={JSON.stringify(Colors.purple)}>Purple</option>
+            <option value={JSON.stringify(Colors.pink)}>Pink</option>
+            <option value={JSON.stringify(Colors.blue)}>Blue</option>
+            <option value={JSON.stringify(Colors.sunset)}>Sunset</option>
+          </select>
+        </div>
         <button className="submit-button" onClick={() => setFlipped(!flipped)}>
           Flip Board
         </button>
@@ -93,6 +110,7 @@ const Board = () => {
                       onSquareClick={() => {
                         handleSquareClick(rank, file);
                       }}
+                      theme={theme}
                     />
                   );
                 })}

@@ -10,6 +10,14 @@ interface SquareProps {
   isValid: boolean;
   flipped: boolean;
   onSquareClick: () => void;
+  theme: Theme;
+}
+
+interface Theme {
+  LightSquare: string,
+  DarkSquare: string,
+  SquareSelect: string,
+  SquareHover: string,
 }
 
 const Square = ({
@@ -19,6 +27,7 @@ const Square = ({
   isValid,
   flipped,
   onSquareClick,
+  theme,
 }: SquareProps) => {
   return (
     <StyledSquare
@@ -27,8 +36,9 @@ const Square = ({
       $isWhite={isWhite}
       $isValid={isValid}
       $piece={piece}
+      $theme={theme}
     >
-      <HighLight $isActive={isActive} $isValid={isValid}>
+      <HighLight $isActive={isActive} $isValid={isValid} $theme={theme}>
         <Flip $flipped={flipped}>
           <ChessPiece piece={piece} />
         </Flip>
@@ -41,6 +51,7 @@ const StyledSquare = styled.button<{
   $isWhite: boolean;
   $isValid: boolean;
   $piece: PieceType;
+  $theme: Theme;
 }>`
   height: 10vw;
   width: 10vw;
@@ -51,25 +62,25 @@ const StyledSquare = styled.button<{
   padding: 0;
   cursor: pointer;
   background: ${(props) =>
-    props.$isWhite ? Colors.LightSquare : Colors.DarkSquare};
+    props.$isWhite ? props.$theme.LightSquare : props.$theme.DarkSquare};
   overflow: hidden;
   background-image: ${(props) =>
     props.$isValid
       ? props.$piece
-        ? `radial-gradient(rgba(0, 0, 0, 0) 80%, ${Colors.SquareSelect} 19%)`
-        : `radial-gradient(${Colors.SquareSelect} 19%, rgba(0, 0, 0, 0) 20%)`
+        ? `radial-gradient(rgba(0, 0, 0, 0) 80%, ${props.$theme.SquareSelect} 19%)`
+        : `radial-gradient(${props.$theme.SquareSelect} 19%, rgba(0, 0, 0, 0) 20%)`
       : ""};
   &:hover {
     background-image: none;
   }
 `;
 
-const HighLight = styled.div<{ $isActive: boolean; $isValid: boolean }>`
+const HighLight = styled.div<{ $isActive: boolean; $isValid: boolean; $theme: Theme }>`
   height: 100%;
   width: 100%;
-  background: ${(props) => (props.$isActive ? Colors.SquareSelect : "")};
+  background: ${(props) => (props.$isActive ? props.$theme.SquareSelect : "")};
   &:hover {
-    background: ${(props) => (props.$isValid ? Colors.SquareSelect : "")};
+    background: ${(props) => (props.$isValid ? props.$theme.SquareHover : "")};
   }
   z-index: 2;
 `;
