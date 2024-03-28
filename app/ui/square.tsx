@@ -1,6 +1,5 @@
 import ChessPiece from "./piece";
 import styled from "styled-components";
-import { Colors } from "../style/colors";
 import { PieceType } from "../types";
 
 interface SquareProps {
@@ -14,10 +13,10 @@ interface SquareProps {
 }
 
 interface Theme {
-  LightSquare: string,
-  DarkSquare: string,
-  SquareSelect: string,
-  SquareHover: string,
+  LightSquare: string;
+  DarkSquare: string;
+  SquareSelect: string;
+  SquareHover: string;
 }
 
 const Square = ({
@@ -75,7 +74,11 @@ const StyledSquare = styled.button<{
   }
 `;
 
-const HighLight = styled.div<{ $isActive: boolean; $isValid: boolean; $theme: Theme }>`
+const HighLight = styled.div<{
+  $isActive: boolean;
+  $isValid: boolean;
+  $theme: Theme;
+}>`
   height: 100%;
   width: 100%;
   background: ${(props) => (props.$isActive ? props.$theme.SquareSelect : "")};
