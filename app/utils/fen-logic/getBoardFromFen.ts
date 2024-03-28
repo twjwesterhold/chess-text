@@ -14,8 +14,6 @@ const getBoardFromFen = (fen: string): SquareType[][] => {
     row.split("").forEach((square) => {
       boardRow.push({
         piece: square !== "1" ? (square as PieceType) : "",
-        isActive: false,
-        isValid: false,
       });
     });
 

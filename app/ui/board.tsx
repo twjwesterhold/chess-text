@@ -16,11 +16,12 @@ const Board = () => {
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   );
   const [board, setBoard] = useState(getBoardFromFen(fen));
-  const [activeSquare, setActiveSquare] = useState<SquareCoords | null>(null);
+  const [activeSquare, setActiveSquare] = useState<SquareCoords>({
+    rank: -1,
+    file: -1,
+  });
   const [flipped, setFlipped] = useState(false);
   const [validSquares, setValidSquares] = useState<SquareCoords[]>([]);
-  const [whiteToMove, setWhiteToMove] = useState(true);
-  const [castlingRights, setCastlingRights] = useState("KQkq");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,29 +36,29 @@ const Board = () => {
     const newBoard = board.map((row) => {
       return row.slice();
     });
-    if (activeSquare) {
-      if (validSquares.find((el) => el.rank === rank && el.file === file)) {
-        newBoard[rank][file].piece =
-          board[activeSquare.rank][activeSquare.file].piece;
-        newBoard[activeSquare.rank][activeSquare.file].piece = "";
-        setBoard(newBoard);
-        setFen(getFenFromBoard(newBoard, !whiteToMove, castlingRights));
-        setWhiteToMove(!whiteToMove);
-        setActiveSquare(null);
-        setValidSquares([]);
-      } else {
-        setBoard(newBoard);
-        setActiveSquare(null);
-        setValidSquares([]);
-      }
+    const [, whiteToMove, castlingRights] = fen.split(" ");
+    const targetPiece = board[rank][file].piece;
+    const isTargetFriendly =
+      (targetPiece === targetPiece.toUpperCase()) === (whiteToMove === "w");
+    if (validSquares.find((el) => el.rank === rank && el.file === file)) {
+      newBoard[rank][file].piece =
+        board[activeSquare.rank][activeSquare.file].piece;
+      newBoard[activeSquare.rank][activeSquare.file].piece = "";
+      setBoard(newBoard);
+      setFen(getFenFromBoard(newBoard, whiteToMove !== "w", castlingRights));
+      setActiveSquare({ rank: -1, file: -1 });
+      setValidSquares([]);
     } else if (
-      board[rank][file].piece &&
-      (board[rank][file].piece === board[rank][file].piece.toUpperCase()) ===
-        whiteToMove
+      targetPiece &&
+      isTargetFriendly &&
+      !(rank === activeSquare.rank && file === activeSquare.file)
     ) {
       const newValidSquares = moveHandler(board, rank, file);
       setValidSquares(newValidSquares);
       setActiveSquare({ rank, file });
+    } else {
+      setActiveSquare({ rank: -1, file: -1 });
+      setValidSquares([]);
     }
   };
 
@@ -81,9 +82,7 @@ const Board = () => {
                       piece={square.piece}
                       isWhite={(rank + file) % 2 === 0}
                       isActive={
-                        !!activeSquare &&
-                        activeSquare.rank === rank &&
-                        activeSquare.file === file
+                        activeSquare.rank === rank && activeSquare.file === file
                       }
                       isValid={
                         !!validSquares.find(
@@ -115,9 +114,9 @@ const Board = () => {
         <button
           id="fen-empty-button"
           className="submit-button"
-          onClick={() =>
-            setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
-          }
+          onClick={() => {
+            setFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+          }}
         >
           Empty
         </button>
